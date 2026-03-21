@@ -1,71 +1,115 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Para ti 💙</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      background: linear-gradient(#aeefff, #ffffff);
-      overflow: hidden;
-    }
+<meta charset="UTF-8">
+<title>Para ti 💙</title>
 
-    .window {
-      position: absolute;
-      background: rgba(255,255,255,0.7);
-      border: 2px solid #00cfff;
-      border-radius: 10px;
-      padding: 10px;
-      backdrop-filter: blur(10px);
-    }
+<style>
+body {
+  margin: 0;
+  background: url("fondo.jpg") no-repeat center center fixed;
+  background-size: cover;
+  font-family: Arial;
+  overflow: hidden;
+}
 
-    .title {
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
+/* Iconos */
+.icono {
+  width: 80px;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+}
 
-    textarea {
-      width: 100%;
-      height: 100px;
-    }
+.icono img {
+  width: 64px;
+}
 
-    canvas {
-      border: 1px solid black;
-      background: white;
-    }
-  </style>
+/* Ventanas */
+.ventana {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+  width: 300px;
+  background: rgba(255,255,255,0.7);
+  border: 2px solid #00cfff;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  display: none;
+  padding: 10px;
+}
+
+.barra {
+  font-weight: bold;
+  margin-bottom: 10px;
+  cursor: move;
+}
+
+/* Canvas */
+canvas {
+  background: white;
+  border: 1px solid black;
+}
+</style>
+
 </head>
 <body>
 
-<audio autoplay loop>
+<!-- 🎵 Música -->
+<audio id="musica" autoplay loop>
   <source src="musica.mp3" type="audio/mpeg">
 </audio>
 
-<div class="window" style="top:20px; left:20px;">
-  <div class="title">Calculadora</div>
-  <input id="calc" placeholder="2+2">
-  <button onclick="resolver()">=</button>
-  <p id="resultado"></p>
+<!-- 💻 ICONOS -->
+<div class="icono" style="top:20px; left:20px;" onclick="abrir('calc')">
+  <img src="calc.png">
+  <div>Calculadora</div>
 </div>
 
-<div class="window" style="top:150px; left:20px;">
-  <div class="title">Editor de texto</div>
-  <textarea placeholder="Escribe algo bonito..."></textarea>
+<div class="icono" style="top:120px; left:20px;" onclick="abrir('txt')">
+  <img src="txt.png">
+  <div>Notas</div>
 </div>
 
-<div class="window" style="top:20px; left:300px;">
-  <div class="title">Paint</div>
-  <canvas id="canvas" width="200" height="200"></canvas>
+<div class="icono" style="top:220px; left:20px;" onclick="abrir('paint')">
+  <img src="paint.png">
+  <div>Paint</div>
+</div>
+
+<!-- 🧮 CALCULADORA -->
+<div id="calc" class="ventana">
+  <div class="barra">Calculadora</div>
+  <input id="inputCalc" placeholder="2+2">
+  <button onclick="calcular()">=</button>
+  <p id="resCalc"></p>
+</div>
+
+<!-- 📝 TEXTO -->
+<div id="txt" class="ventana">
+  <div class="barra">Notas</div>
+  <textarea style="width:100%; height:150px;"></textarea>
+</div>
+
+<!-- 🎨 PAINT -->
+<div id="paint" class="ventana">
+  <div class="barra">Paint</div>
+  <canvas id="canvas" width="250" height="200"></canvas>
 </div>
 
 <script>
-function resolver() {
-  let input = document.getElementById("calc").value;
-  document.getElementById("resultado").innerText = eval(input);
+// Abrir ventanas
+function abrir(id) {
+  document.getElementById(id).style.display = "block";
 }
 
-// Paint simple
+// Calculadora
+function calcular() {
+  let val = document.getElementById("inputCalc").value;
+  document.getElementById("resCalc").innerText = eval(val);
+}
+
+// Paint
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
 let dibujando = false;
@@ -76,6 +120,11 @@ canvas.onmousemove = (e) => {
   if (!dibujando) return;
   ctx.fillRect(e.offsetX, e.offsetY, 2, 2);
 };
+
+// Música (por si el navegador bloquea autoplay)
+document.body.addEventListener("click", () => {
+  document.getElementById("musica").play();
+});
 </script>
 
 </body>
