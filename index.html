@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Para ti 💙</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: linear-gradient(#aeefff, #ffffff);
+      overflow: hidden;
+    }
+
+    .window {
+      position: absolute;
+      background: rgba(255,255,255,0.7);
+      border: 2px solid #00cfff;
+      border-radius: 10px;
+      padding: 10px;
+      backdrop-filter: blur(10px);
+    }
+
+    .title {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 100px;
+    }
+
+    canvas {
+      border: 1px solid black;
+      background: white;
+    }
+  </style>
+</head>
+<body>
+
+<audio autoplay loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<div class="window" style="top:20px; left:20px;">
+  <div class="title">Calculadora</div>
+  <input id="calc" placeholder="2+2">
+  <button onclick="resolver()">=</button>
+  <p id="resultado"></p>
+</div>
+
+<div class="window" style="top:150px; left:20px;">
+  <div class="title">Editor de texto</div>
+  <textarea placeholder="Escribe algo bonito..."></textarea>
+</div>
+
+<div class="window" style="top:20px; left:300px;">
+  <div class="title">Paint</div>
+  <canvas id="canvas" width="200" height="200"></canvas>
+</div>
+
+<script>
+function resolver() {
+  let input = document.getElementById("calc").value;
+  document.getElementById("resultado").innerText = eval(input);
+}
+
+// Paint simple
+let canvas = document.getElementById("canvas");
+let ctx = canvas.getContext("2d");
+let dibujando = false;
+
+canvas.onmousedown = () => dibujando = true;
+canvas.onmouseup = () => dibujando = false;
+canvas.onmousemove = (e) => {
+  if (!dibujando) return;
+  ctx.fillRect(e.offsetX, e.offsetY, 2, 2);
+};
+</script>
+
+</body>
+</html>
