@@ -9,7 +9,7 @@ body {
   margin: 0;
   background: url("fondo.jpg") no-repeat center center fixed;
   background-size: cover;
-  font-family: Arial;
+  font-family: "Segoe UI", Tahoma, sans-serif;
   overflow: hidden;
 }
 
@@ -31,8 +31,8 @@ body {
   position: absolute;
   top: 100px;
   left: 100px;
-  width: 300px;
-  background: rgba(255,255,255,0.7);
+  width: 320px;
+  background: rgba(255,255,255,0.75);
   border: 2px solid #00cfff;
   border-radius: 10px;
   backdrop-filter: blur(10px);
@@ -40,8 +40,9 @@ body {
   padding: 10px;
 }
 
+/* Barra estilo Windows */
 .barra {
-  font-weight: bold;
+  font-weight: 600;
   margin-bottom: 10px;
   cursor: move;
 }
@@ -66,12 +67,11 @@ canvas {
 </head>
 <body>
 
-<!-- 🎵 Música -->
 <audio id="musica" autoplay loop>
   <source src="musica.mp3" type="audio/mpeg">
 </audio>
 
-<!-- 💻 ICONOS -->
+<!-- ICONOS -->
 <div class="icono" style="top:20px; left:20px;" onclick="abrir('calc')">
   <img src="calc.png">
   <div>Calculadora</div>
@@ -87,13 +87,18 @@ canvas {
   <div>Paint</div>
 </div>
 
-<!-- 🕹️ NUEVO ICONO TETRIS -->
 <div class="icono" style="top:320px; left:20px;" onclick="abrir('tetris')">
   <img src="tetris.png">
   <div>Tetris</div>
 </div>
 
-<!-- 🧮 CALCULADORA -->
+<!-- 💙 NUEVO ICONO DANI -->
+<div class="icono" style="top:420px; left:20px;" onclick="abrir('dani')">
+  <img src="icono.png">
+  <div>Dani</div>
+</div>
+
+<!-- CALCULADORA -->
 <div id="calc" class="ventana">
   <div class="barra">
     Calculadora
@@ -104,7 +109,7 @@ canvas {
   <p id="resCalc"></p>
 </div>
 
-<!-- 📝 TEXTO -->
+<!-- NOTAS -->
 <div id="txt" class="ventana">
   <div class="barra">
     Notas
@@ -113,7 +118,7 @@ canvas {
   <textarea style="width:100%; height:150px;"></textarea>
 </div>
 
-<!-- 🎨 PAINT -->
+<!-- PAINT -->
 <div id="paint" class="ventana">
   <div class="barra">
     Paint
@@ -122,13 +127,29 @@ canvas {
   <canvas id="canvas" width="250" height="200"></canvas>
 </div>
 
-<!-- 🕹️ VENTANA TETRIS -->
+<!-- TETRIS -->
 <div id="tetris" class="ventana">
   <div class="barra">
     Tetris
     <span class="cerrar" onclick="cerrar('tetris')">✖</span>
   </div>
   <canvas id="tetrisCanvas" width="200" height="400"></canvas>
+</div>
+
+<!-- 💙 VENTANA DANI -->
+<div id="dani" class="ventana">
+  <div class="barra">
+    Dani
+    <span class="cerrar" onclick="cerrar('dani')">✖</span>
+  </div>
+
+  <p><b>Fecha de nacimiento:</b> 11 de noviembre de 2007</p>
+  <p><b>Estudia:</b> Universidad de los Andes - Historia del arte</p>
+  <p><b>Descripción:</b></p>
+  <p>
+    Artista, defensora de los derechos de las mujeres y amante de sus perros (tango, luna y sol),
+    fan #1 de geese y de hole, amante de snoopy y la mejor persona del mundo
+  </p>
 </div>
 
 <script>
@@ -160,14 +181,12 @@ canvas.onmousemove = (e) => {
   ctx.fillRect(e.offsetX, e.offsetY, 2, 2);
 };
 
-// Música (por si el navegador bloquea autoplay)
+// Música
 document.body.addEventListener("click", () => {
   document.getElementById("musica").play();
 });
 
-// =======================
-// 🕹️ TETRIS SIMPLE
-// =======================
+// TETRIS
 const canvasT = document.getElementById("tetrisCanvas");
 const ctxT = canvasT.getContext("2d");
 
