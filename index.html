@@ -46,6 +46,16 @@ body {
   cursor: move;
 }
 
+/* Botón cerrar */
+.cerrar {
+  float: right;
+  cursor: pointer;
+  background: red;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
 /* Canvas */
 canvas {
   background: white;
@@ -77,9 +87,18 @@ canvas {
   <div>Paint</div>
 </div>
 
+<!-- 🕹️ NUEVO ICONO TETRIS -->
+<div class="icono" style="top:320px; left:20px;" onclick="abrir('tetris')">
+  <img src="tetris.png">
+  <div>Tetris</div>
+</div>
+
 <!-- 🧮 CALCULADORA -->
 <div id="calc" class="ventana">
-  <div class="barra">Calculadora</div>
+  <div class="barra">
+    Calculadora
+    <span class="cerrar" onclick="cerrar('calc')">✖</span>
+  </div>
   <input id="inputCalc" placeholder="2+2">
   <button onclick="calcular()">=</button>
   <p id="resCalc"></p>
@@ -87,20 +106,40 @@ canvas {
 
 <!-- 📝 TEXTO -->
 <div id="txt" class="ventana">
-  <div class="barra">Notas</div>
+  <div class="barra">
+    Notas
+    <span class="cerrar" onclick="cerrar('txt')">✖</span>
+  </div>
   <textarea style="width:100%; height:150px;"></textarea>
 </div>
 
 <!-- 🎨 PAINT -->
 <div id="paint" class="ventana">
-  <div class="barra">Paint</div>
+  <div class="barra">
+    Paint
+    <span class="cerrar" onclick="cerrar('paint')">✖</span>
+  </div>
   <canvas id="canvas" width="250" height="200"></canvas>
+</div>
+
+<!-- 🕹️ VENTANA TETRIS -->
+<div id="tetris" class="ventana">
+  <div class="barra">
+    Tetris
+    <span class="cerrar" onclick="cerrar('tetris')">✖</span>
+  </div>
+  <canvas id="tetrisCanvas" width="200" height="400"></canvas>
 </div>
 
 <script>
 // Abrir ventanas
 function abrir(id) {
   document.getElementById(id).style.display = "block";
+}
+
+// Cerrar ventanas
+function cerrar(id) {
+  document.getElementById(id).style.display = "none";
 }
 
 // Calculadora
@@ -124,6 +163,43 @@ canvas.onmousemove = (e) => {
 // Música (por si el navegador bloquea autoplay)
 document.body.addEventListener("click", () => {
   document.getElementById("musica").play();
+});
+
+// =======================
+// 🕹️ TETRIS SIMPLE
+// =======================
+const canvasT = document.getElementById("tetrisCanvas");
+const ctxT = canvasT.getContext("2d");
+
+const grid = 20;
+let pieza = { x: 4, y: 0, forma: [[1,1],[1,1]] };
+
+function dibujarTetris() {
+  ctxT.clearRect(0,0,200,400);
+
+  ctxT.fillStyle = "cyan";
+  pieza.forma.forEach((fila, y) => {
+    fila.forEach((val, x) => {
+      if (val) {
+        ctxT.fillRect((pieza.x + x)*grid, (pieza.y + y)*grid, grid, grid);
+      }
+    });
+  });
+}
+
+function moverAbajo() {
+  pieza.y++;
+  if (pieza.y * grid > 380) pieza.y = 0;
+}
+
+setInterval(() => {
+  moverAbajo();
+  dibujarTetris();
+}, 500);
+
+document.addEventListener("keydown", e => {
+  if (e.key === "ArrowLeft") pieza.x--;
+  if (e.key === "ArrowRight") pieza.x++;
 });
 </script>
 
