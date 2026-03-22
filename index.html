@@ -124,6 +124,23 @@ canvas {
     Paint
     <span class="cerrar" onclick="cerrar('paint')">✖</span>
   </div>
+
+  <!-- 🎨 PALETA -->
+  <div style="margin-bottom:5px;">
+    <button onclick="cambiarColor('red')" style="background:red; width:20px;"></button>
+    <button onclick="cambiarColor('orange')" style="background:orange; width:20px;"></button>
+    <button onclick="cambiarColor('yellow')" style="background:yellow; width:20px;"></button>
+    <button onclick="cambiarColor('green')" style="background:green; width:20px;"></button>
+    <button onclick="cambiarColor('blue')" style="background:blue; width:20px;"></button>
+    <button onclick="cambiarColor('indigo')" style="background:indigo; width:20px;"></button>
+    <button onclick="cambiarColor('violet')" style="background:violet; width:20px;"></button>
+    <button onclick="cambiarColor('black')" style="background:black; width:20px;"></button>
+    <button onclick="cambiarColor('white')" style="background:white; width:20px; border:1px solid black;"></button>
+
+    <!-- 🧽 BORRADOR -->
+    <button onclick="borrar()">🧽</button>
+  </div>
+
   <canvas id="canvas" width="250" height="200"></canvas>
 </div>
 
