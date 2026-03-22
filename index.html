@@ -11,6 +11,7 @@ body {
   background-size: cover;
   font-family: "Segoe UI", Tahoma, sans-serif;
   overflow: hidden;
+  text-shadow: 0 0 1px black;
 }
 
 /* Iconos */
@@ -20,6 +21,7 @@ body {
   color: white;
   cursor: pointer;
   position: absolute;
+  text-shadow: 0 0 2px black;
 }
 
 .icono img {
@@ -189,19 +191,27 @@ function calcular() {
 // Paint
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
+
 let dibujando = false;
+let colorActual = "black";
+
+// Cambiar color
+function cambiarColor(color) {
+  colorActual = color;
+}
+
+// Borrador
+function borrar() {
+  colorActual = "white";
+}
 
 canvas.onmousedown = () => dibujando = true;
 canvas.onmouseup = () => dibujando = false;
 canvas.onmousemove = (e) => {
   if (!dibujando) return;
-  ctx.fillRect(e.offsetX, e.offsetY, 2, 2);
+  ctx.fillStyle = colorActual;
+  ctx.fillRect(e.offsetX, e.offsetY, 4, 4);
 };
-
-// Música
-document.body.addEventListener("click", () => {
-  document.getElementById("musica").play();
-});
 
 // TETRIS
 const canvasT = document.getElementById("tetrisCanvas");
