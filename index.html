@@ -39,31 +39,83 @@ body {
   top: 100px;
   left: 100px;
   width: 320px;
-  background: rgba(255,255,255,0.75);
-  border: 2px solid #00cfff;
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
+
+  background:
+    linear-gradient(
+      rgba(255,255,255,0.85),
+      rgba(210,230,255,0.65)
+    );
+
+  border: 1px solid rgba(255,255,255,0.7);
+
+  border-radius: 12px;
+
+  backdrop-filter: blur(12px);
+
   display: none;
+
   padding: 10px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+
+  box-shadow:
+    0 0 25px rgba(0,0,0,0.35),
+    inset 0 0 12px rgba(255,255,255,0.5);
+
+  overflow: hidden;
 }
 
 /* BARRA */
 .barra {
+
   font-weight: 600;
-  margin-bottom: 10px;
+
+  margin: -10px -10px 10px -10px;
+
+  padding: 10px;
+
   cursor: move;
+
   user-select: none;
+
+  color: white;
+
+  border-radius: 12px 12px 0 0;
+
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(120,190,255,0.95),
+      rgba(40,120,255,0.85)
+    );
+
+  border-bottom:
+    1px solid rgba(255,255,255,0.5);
+
+  text-shadow:
+    0 0 2px black;
 }
 
-/* CERRAR */
+/* BOTON CERRAR */
 .cerrar {
+
   float: right;
+
   cursor: pointer;
-  background: red;
+
+  background:
+    linear-gradient(
+      #ff6b6b,
+      #d60000
+    );
+
   color: white;
-  padding: 2px 6px;
-  border-radius: 3px;
+
+  padding: 2px 8px;
+
+  border-radius: 4px;
+
+  border: 1px solid rgba(255,255,255,0.4);
+
+  box-shadow: 0 0 4px rgba(0,0,0,0.4);
 }
 
 /* CANVAS */
@@ -141,6 +193,13 @@ iframe {
   </div>
 
   <textarea style="width:100%; height:150px;"></textarea>
+</div>
+
+<!-- FONDOS --> 
+</body>
+<div class="icono" style="top:620px; left:20px;" onclick="abrir('wallpapers')">
+  <img src="./wallpaper.png">
+  <div>Fondos</div>
 </div>
 
 <!-- PAINT -->
@@ -227,6 +286,38 @@ iframe {
   </iframe>
 </div>
 
+
+<!-- WALLPAPERS -->
+<div id="wallpapers" class="ventana" style="width:420px;">
+  <div class="barra">
+    Personalización
+    <span class="cerrar" onclick="cerrar('wallpapers')">✖</span>
+  </div>
+
+  <p>Selecciona un fondo:</p>
+
+  <button onclick="cambiarFondo('./wallpapers/aero1.jpg')">
+    Fondo 1
+  </button>
+
+  <button onclick="cambiarFondo('./wallpapers/aero2.png')">
+    Fondo 2
+  </button>
+
+  <button onclick="cambiarFondo('./wallpapers/aero3.png')">
+    Fondo 3
+  </button>
+
+  <button onclick="cambiarFondo('./wallpapers/aero4.jpg')">
+    Fondo 4
+  </button>
+
+    <button onclick="cambiarFondo('./wallpapers/aero5.jpg')">
+    Fondo 5
+  </button>
+
+</div>
+
 <script>
 
 // ABRIR
@@ -237,6 +328,15 @@ function abrir(id) {
 // CERRAR
 function cerrar(id) {
   document.getElementById(id).style.display = "none";
+}
+
+// CAMBIAR FONDO
+function cambiarFondo(imagen) {
+
+  document.body.style.background =
+    `url('${imagen}') no-repeat center center fixed`;
+
+  document.body.style.backgroundSize = "cover";
 }
 
 // CALCULADORA
