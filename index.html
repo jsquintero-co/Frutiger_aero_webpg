@@ -102,9 +102,10 @@ iframe {
   <div>Paint</div>
 </div>
 
-<div class="icono" style="top:320px; left:20px;" onclick="abrir('tetris')">
-  <img src="./tetris.png" alt="Tetris">
-  <div>Tetris</div>
+<!-- SONIC -->
+<div class="icono" style="top:320px; left:20px;" onclick="abrir('sonic')">
+  <img src="./sonic.png" alt="Sonic">
+  <div>Sonic</div>
 </div>
 
 <!-- DANI -->
@@ -177,16 +178,6 @@ iframe {
   <canvas id="canvas" width="250" height="200"></canvas>
 </div>
 
-<!-- TETRIS -->
-<div id="tetris" class="ventana">
-  <div class="barra">
-    Tetris
-    <span class="cerrar" onclick="cerrar('tetris')">✖</span>
-  </div>
-
-  <canvas id="tetrisCanvas" width="200" height="400"></canvas>
-</div>
-
 <!-- DANI -->
 <div id="dani" class="ventana">
   <div class="barra">
@@ -218,6 +209,21 @@ iframe {
     src="https://freepacman.org/"
     width="100%"
     height="470">
+  </iframe>
+</div>
+
+<!-- SONIC -->
+<div id="sonic" class="ventana" style="width:900px; height:650px;">
+  <div class="barra">
+    Sonic The Hedgehog
+    <span class="cerrar" onclick="cerrar('sonic')">✖</span>
+  </div>
+
+  <iframe
+    src="https://binbashbanana.github.io/webretro/"
+    width="100%"
+    height="570"
+    style="border:none;">
   </iframe>
 </div>
 
@@ -286,73 +292,6 @@ canvas.onmousemove = (e) => {
   ctx.fillRect(e.offsetX, e.offsetY, 4, 4);
 };
 
-// TETRIS
-
-const canvasT = document.getElementById("tetrisCanvas");
-const ctxT = canvasT.getContext("2d");
-
-const grid = 20;
-
-let pieza = {
-  x: 4,
-  y: 0,
-  forma: [
-    [1,1],
-    [1,1]
-  ]
-};
-
-function dibujarTetris() {
-
-  ctxT.clearRect(0,0,200,400);
-
-  ctxT.fillStyle = "cyan";
-
-  pieza.forma.forEach((fila, y) => {
-
-    fila.forEach((val, x) => {
-
-      if (val) {
-
-        ctxT.fillRect(
-          (pieza.x + x) * grid,
-          (pieza.y + y) * grid,
-          grid,
-          grid
-        );
-      }
-    });
-  });
-}
-
-function moverAbajo() {
-
-  pieza.y++;
-
-  if (pieza.y * grid > 380) {
-    pieza.y = 0;
-  }
-}
-
-setInterval(() => {
-
-  moverAbajo();
-
-  dibujarTetris();
-
-}, 500);
-
-document.addEventListener("keydown", e => {
-
-  if (e.key === "ArrowLeft") {
-    pieza.x--;
-  }
-
-  if (e.key === "ArrowRight") {
-    pieza.x++;
-  }
-
-});
 
 // MUSICA
 
